@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:news_app_flutter/home_page/NewsListModel.dart';
 import 'package:news_app_flutter/network/NetworkApis.dart';
 
+import 'APiKey.dart';
+
 class NewsController extends GetxController {
   RxList<News> newsList = <News>[].obs;
 
@@ -18,14 +20,14 @@ class NewsController extends GetxController {
   Future<void> fetchNews() async {
     try {
       final queryParameters = {
-        'access_key':NetworkApis.API_KEY,
+        'access_key':API_KEY,
       };
       final response = await http.get(
         Uri.http(NetworkApis.BASE_URL,NetworkApis.NEWS_API,queryParameters),
         headers: {
-          'access_key': NetworkApis.API_KEY,
-          'languages': 'fr,-en',
-          'countries': 'ca,in',
+          'access_key': API_KEY,
+          'languages': '-en',
+          'countries': 'in',
           'limit': '30',
           'offset': '30',
         },
