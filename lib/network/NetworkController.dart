@@ -16,17 +16,22 @@ class NewsController extends GetxController {
 
   Future<void> fetchNews() async {
     try {
+      final queryParameters = {
+        'access_key':NetworkApis.API_KEY,
+      };
       final response = await http.get(
-        Uri.parse(NetworkApis.NEWS_API),
+        Uri.https(NetworkApis.BASE_URL,NetworkApis.NEWS_API,queryParameters),
         headers: {
           'access_key': NetworkApis.API_KEY,
           'languages': 'fr,-en',
-          'countries': 'ca,fr',
+          'countries': 'ca,in',
           'limit': '30',
           'offset': '30',
         },
       );
 
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         final res = json.decode(response.body);
         final news =

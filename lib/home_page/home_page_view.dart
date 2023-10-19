@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../network/NetworkController.dart';
-import 'home_page_logic.dart';
 
 class HomePagePage extends StatelessWidget {
-  final NewsController newsController = Get.find();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News App'),
+        title: const Text('News App'),
       ),
-      body: Obx(
-            () =>
-            ListView.builder(
+      body: GetX<NewsController>(
+          init: NewsController(),
+          builder: (newsController) {
+            print(newsController.newsList.length.toString());
+            // print(newsController.newsList[0].title);
+            return ListView.builder(
               itemCount: newsController.newsList.length,
               itemBuilder: (context, index) {
                 final news = newsController.newsList[index];
@@ -27,8 +27,8 @@ class HomePagePage extends StatelessWidget {
                   },
                 );
               },
-            ),
-      ),
+            );
+          }),
     );
   }
 }
@@ -52,4 +52,4 @@ class HomePagePage extends StatelessWidget {
 //     Get.delete<HomePageLogic>();
 //     super.dispose();
 //   }
-}
+// }
