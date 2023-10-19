@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +21,7 @@ class NewsController extends GetxController {
         'access_key':NetworkApis.API_KEY,
       };
       final response = await http.get(
-        Uri.https(NetworkApis.BASE_URL,NetworkApis.NEWS_API,queryParameters),
+        Uri.http(NetworkApis.BASE_URL,NetworkApis.NEWS_API,queryParameters),
         headers: {
           'access_key': NetworkApis.API_KEY,
           'languages': 'fr,-en',
@@ -31,11 +32,10 @@ class NewsController extends GetxController {
       );
 
       print(response.statusCode);
-      print(response.body);
+      log(response.body);
       if (response.statusCode == 200) {
         final res = json.decode(response.body);
-        final news =
-            res.map((data) => new NewsListModel.fromJson(data)).toList();
+        final news = NewsListModel.fromJson(res).data;
         newsList.assignAll(news);
       } else {
         throw Exception('Failed to load news');
