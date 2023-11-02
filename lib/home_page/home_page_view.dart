@@ -27,12 +27,11 @@ class HomePagePage extends StatelessWidget {
               itemCount: newsController.newsList.length,
               itemBuilder: (context, index) {
                 final news = newsController.newsList[index];
-                return ListTile(
-                  title: Text(news.title.toString()),
-                  subtitle: Text(news.description.toString()),
-                  onTap: () {
-                    // Handle article click
-                  },
+                return Column(
+                  children: [
+                    Text(news.title.toString()),
+                    Text(news.description.toString()),
+                  ],
                 );
               },
             );
